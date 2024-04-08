@@ -42,6 +42,6 @@ class outdir_is_executable(libkcov.TestCase):
         # "Operation not permitted", even with ptrace_scope set to 0.
         # See https://www.kernel.org/doc/Documentation/security/Yama.txt
         executable = self.sources + "/tests/python/short-test.py"
-        rv, o = self.do(self.kcov + " echo " + executable)
+        rv, o = self.do(self.kcov + " python3 " + executable)
 
         assert rv == 0

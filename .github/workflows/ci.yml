@@ -6,6 +6,7 @@ jobs:
     name: Build and test Linux executable
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         arch: [amd64, armv7, aarch64, ppc64le, i386]
 
@@ -29,15 +30,17 @@ jobs:
           chmod u+x ./.github/workflows/setup-i386.sh
           sudo .github/workflows/setup-i386.sh
           sudo schroot -c mychroot -- ./.github/workflows/generic-build.sh ${{ matrix.arch }}
+          sudo schroot -c mychroot -- ./.github/workflows/ci-run-tests.sh
 
       - name: Build for matrix.arch == armv7, aarch64, ppc64le
         if: ${{ matrix.arch == 'armv7' || matrix.arch == 'aarch64' || matrix.arch == 'ppc64le' }}
-        uses: uraimo/run-on-arch-action@v2.6.0
+        uses: uraimo/run-on-arch-action@v2
         with:
           arch: ${{ matrix.arch }}
           distro: ubuntu22.04
           run: |
             .github/workflows/generic-build.sh ${{ matrix.arch }}
+            .github/workflows/ci-run-tests.sh
 
   build-osx:
     name: Build OSX executable (macos-latest)
@@ -57,6 +60,7 @@ jobs:
       - name: Build for OSX
         run: |
           sudo .github/workflows/osx-build.sh
+          sudo .github/workflows/ci-run-tests.sh
 
 
   build-freebsd:
