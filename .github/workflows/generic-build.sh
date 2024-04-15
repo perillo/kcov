@@ -40,7 +40,6 @@ run () {
     echo "Built for $1".
   fi
 
-  chmod u+x .github/workflows/test-executable.sh
   kcov --include-pattern=test-executable.sh coverage .github/workflows/test-executable.sh
 
   local coverage="$(<coverage/test-executable.sh/coverage.json)"

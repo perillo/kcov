@@ -27,7 +27,6 @@ jobs:
       - name: Build for matrix.arch == i386
         if: ${{ matrix.arch == 'i386' }}
         run: |
-          chmod u+x ./.github/workflows/setup-i386.sh
           sudo .github/workflows/setup-i386.sh
           sudo schroot -c mychroot -- ./.github/workflows/generic-build.sh ${{ matrix.arch }}
 
@@ -52,7 +51,7 @@ jobs:
 
       - name: Prepare
         run: |
-          chmod u+x .github/workflows/osx-build.sh .github/workflows/ci-run-tests.sh
+          chmod u+x .github/workflows/*.sh
           brew install zlib bash cmake pkgconfig python@3.9 openssl@1.1 dwarfutils
 
       - name: Build for OSX
@@ -72,7 +71,7 @@ jobs:
         usesh: true
         prepare: pkg install -y binutils cmake elfutils python bash git python2
         run: |
-          chmod u+x .github/workflows/freebsd-build.sh .github/workflows/ci-run-tests.sh
+          chmod u+x .github/workflows/*.sh
           .github/workflows/freebsd-build.sh x86_64
           .github/workflows/ci-run-tests.sh
 
