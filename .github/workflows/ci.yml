@@ -60,7 +60,7 @@ jobs:
           sudo .github/workflows/ci-run-tests.sh
 
   build-freebsd:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Build and test FreeBSD executable
     steps:
     - uses: actions/checkout@v3
