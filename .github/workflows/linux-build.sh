@@ -3,15 +3,9 @@
 set -euo pipefail
 
 run () {
-  DEB_ARCH=$1
+  arch="$1"
   EXTRA_PACKAGES=""
-  if [ "$DEB_ARCH" = "ppc64le" ]; then
-    DEB_ARCH="ppc64"
-  elif [ "$DEB_ARCH" = "armv7" ]; then
-    DEB_ARCH="armhf"
-  elif [ "$DEB_ARCH" = "aarch64" ]; then
-    DEB_ARCH="arm64"
-  else
+  if [ "$arch" = "amd64" ] || [ "$arch" == "i386" ]; then
     EXTRA_PACKAGES="g++-multilib"
   fi
 
